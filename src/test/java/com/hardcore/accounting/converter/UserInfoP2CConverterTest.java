@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class UserInfoC2SConverterTest {
+public class UserInfoP2CConverterTest {
 
     private UserInfoP2CConverter userInfoP2CConverter = new UserInfoP2CConverter();
 
