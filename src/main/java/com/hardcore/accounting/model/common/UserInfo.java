@@ -10,6 +10,7 @@ import java.time.LocalTime;
 @Builder
 public class UserInfo {
     private Long id;
+    private String salt;
     private String username;
     private String password;
     private LocalDate createTime;

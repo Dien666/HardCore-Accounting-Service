@@ -50,7 +50,7 @@ public class UserInfoManagerImpl implements UserInfoManager{
     public void login(String username, String password) {
         // get subject
         Subject subject = SecurityUtils.getSubject();
-        // construct tokrn
+        // construct token
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
 
         // login

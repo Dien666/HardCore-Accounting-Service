@@ -37,7 +37,9 @@ public class UserController {
             throw new InvalidParameterException(String.format("The user id %s is invalid", userId));
         }
         val userInfo = userInfoManager.getUserInfoByUserId(userId);
-        return ResponseEntity.ok(userInfoC2SConverter.convert(userInfo));
+        val userInfoToReturn = userInfoC2SConverter.convert(userInfo);
+        assert userInfoToReturn != null;
+        return ResponseEntity.ok(userInfoToReturn);
     }
 
     @ResponseBody

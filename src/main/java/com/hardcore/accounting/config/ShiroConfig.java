@@ -1,8 +1,9 @@
 package com.hardcore.accounting.config;
 
 import lombok.val;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.mgt.DefaultSecurityManager;
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -13,25 +14,30 @@ import java.util.LinkedHashMap;
 
 @Configuration
 public class ShiroConfig {
-    @Bean
-    public DefaultWebSecurityManager securityManager(Realm realm) {
-        return new DefaultWebSecurityManager(realm);
 
+    @Bean
+    public SecurityManager securityManager(Realm realm) {
+        val securityManager = new DefaultWebSecurityManager(realm);
+        SecurityUtils.setSecurityManager(securityManager);
+        return securityManager;
     }
 
     /**
-     * Shiro Filter
+     * Shiro Filter 实现权限相关拦截
+     * annon：无需login access
+     * authc：需要login 才能 acess
+     * user： remember me -> access
      */
     @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultSecurityManager defaultSecurityManager) {
-        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-        shiroFilterFactoryBean.setSecurityManager(defaultSecurityManager);
-
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new CustomShiroFilterFactoryBean();
+        shiroFilterFactoryBean.setSecurityManager(securityManager);
+        val filters = shiroFilterFactoryBean.getFilters();
+        filters.put("custom", new CustomHttpFilter());
+        filters.put("authc", new CustomFormAuthenticationFilter());
         LinkedHashMap<String, String> shiroFilterDefinitionMap = new LinkedHashMap<String, String>();
-        //@Todo: consider different HTTP method may need different filter
         shiroFilterDefinitionMap.put("/v1.0/session", "anon");
-        // shiroFilterDefinitionMap.put("/v1.0/users/**", "anon");
-
+        shiroFilterDefinitionMap.put("/v1.0/users/**::POST", "custom");
         shiroFilterDefinitionMap.put("/**", "authc");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(shiroFilterDefinitionMap);

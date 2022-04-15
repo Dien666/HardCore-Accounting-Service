@@ -9,7 +9,7 @@ public interface UserInfoMapper {
     @Select("SELECT id, username, password, update_time, create_time FROM hcas_userinfo WHERE id = #{id}")
     UserInfo getUserInfoByUserId(@Param("id") Long id);
 
-    @Select("SELECT id, username, password, update_time, create_time FROM hcas_userinfo WHERE username = #{username}")
+    @Select("SELECT id, username, password, salt, update_time, create_time FROM hcas_userinfo WHERE username = #{username}")
     UserInfo getUserInfoByUserName(@Param("username") String username);
 
     @Options(useGeneratedKeys = true, keyProperty = "id")

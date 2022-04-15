@@ -7,6 +7,7 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,8 +30,12 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = (String) token.getPrincipal();
-        String password = new String((char[]) token.getCredentials());
+
         UserInfo userInfo = userInfoManager.getUserInfoByUserName(username);
-        return new SimpleAuthenticationInfo(userInfo.getUsername(), userInfo.getPassword(), this.getName());
+        return new SimpleAuthenticationInfo(
+                userInfo.getUsername(),
+                userInfo.getPassword(),
+                ByteSource.Util.bytes(userInfo.getSalt()),
+                this.getName());
     }
 }
