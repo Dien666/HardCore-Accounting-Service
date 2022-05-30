@@ -6,18 +6,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
+import java.util.List;
 
-/**
- * 用于服务的数据模型，与用户直接沟通
- */
 @Data
 @Builder
-@JsonInclude
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserInfo {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Record {
     private Long id;
-    private String username;
-    private String password;
+    private Long userId;
+    private BigDecimal amount;
+    private String note;
+    private String category;
+    private List<Tag> tagList;
 }

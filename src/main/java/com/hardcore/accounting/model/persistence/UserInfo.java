@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * 持久层数据模型，用于与数据库直接沟通
+ */
 @Data
 @Builder
 @NoArgsConstructor

@@ -17,6 +17,9 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * controller -> manager -> DAO -> MySQL
+ */
 @Component
 public class UserInfoManagerImpl implements UserInfoManager{
 
@@ -67,7 +70,7 @@ public class UserInfoManagerImpl implements UserInfoManager{
 
         // set random salt
         String salt = UUID.randomUUID().toString();
-        String encryptedPassword = new Sha256Hash(password, salt).toBase64();
+        String encryptedPassword = new Sha256Hash(password, salt, 1000).toBase64();
 
         val newUserInfo = com.hardcore.accounting.model.persistence.UserInfo.builder()
                 .username(username)

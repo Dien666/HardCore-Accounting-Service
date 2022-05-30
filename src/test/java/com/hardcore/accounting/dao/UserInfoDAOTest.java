@@ -1,3 +1,4 @@
+/*
 package com.hardcore.accounting.dao;
 
 import com.hardcore.accounting.dao.mapper.UserInfoMapper;
@@ -48,3 +49,4 @@ public class UserInfoDAOTest {
 
     }
 }
+*/

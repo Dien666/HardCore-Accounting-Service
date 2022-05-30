@@ -37,8 +37,6 @@
             <scope>provided</scope>
         </dependency>
 
-
-
         <!--Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -70,7 +68,13 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.15</version>
+            <version>8.0.16</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.13</version>
         </dependency>
 
         <!--Swagger-UI API doc generator-->

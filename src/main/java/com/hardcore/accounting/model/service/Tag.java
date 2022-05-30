@@ -6,18 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
-/**
- * 用于服务的数据模型，与用户直接沟通
- */
 @Data
 @Builder
-@JsonInclude
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserInfo {
+public class Tag {
     private Long id;
-    private String username;
-    private String password;
+    private String description;
+    private Long userId;
+    private String status;
 }
